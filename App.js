@@ -1,22 +1,16 @@
 import React from 'react';
-import TouchableExample from './components/TouchableExample';
-import TouchablePractice from './components/TouchablePractice';
-// import TextInputPractice1 from './components/TextInputPractice1';
-// import ButtonExample from './components/ButtonExample';
-// import ImageWithTextInput  from './components/ImageWithTextInput';
-// import TextInputReview from './components/TextInputReview';
+import { Text ,View} from 'react-native';
+import AlertExample from './components/AlertExample';
+import ModelExample from './components/ModelExample';
 
 
 
-const App = () => {
+
+export default function App(){
   return (
-    // <ImageWithTextInput/>
-    // <TextInputReview/>
-    // <ButtonExample/>
-    // <TextInputPractice1/>
-    // <TouchableExample/>
-    <TouchablePractice/>
+    <View>
+      {/* <AlertExample></AlertExample> */}
+      <ModelExample></ModelExample>
+    </View>
   );
 };
-
-export default App
