@@ -20,7 +20,7 @@ const FirstPage = ({navigation}) => {
       />
       <Button
         title="GO NEXT"
-        onPress={() => navigation.navigate('SecondPage', {name: Name})} //Para1 - Navigate ที่จะไป, Para2 - ค่าที่จะส่งไปแบบ Static
+        onPress={() => navigation.navigate('SecondPage', {name: Name})}
       />
     </View>
   );
