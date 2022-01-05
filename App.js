@@ -11,7 +11,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName='Home'
+        initialRouteName="FirstPage"
         screenOptions={{
           headerStyle: {
             backgroundColor: '#f4511e',
@@ -22,13 +22,20 @@ export default function App() {
           },
         }}>
         <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{ title: 'หน้าหลัก' }} />
+          name="FirstPage"
+          component={FirstPage}
+          options={{
+            title: 'FIRST PAGE',
+          }}
+        />
+
         <Stack.Screen
-          name="About"
-          component={AboutScreen}
-          options={{ title: 'เกี่ยวกับเรา' }} />
+          name="SecondPage"
+          component={SecondPage}
+          options={{
+            title: 'SECOND PAGE',
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

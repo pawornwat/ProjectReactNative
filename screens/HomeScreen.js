@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet ,Button} from 'react-native'
 
 export default function HomeScreen() {
     return (
@@ -9,7 +9,7 @@ export default function HomeScreen() {
             </Text>
             <Button
                 title="Go to About"
-                onPress={() => navigation.navigate('About')}
+                onPress={() => navigation.navigate('About',{email:'aaaa@gmail.com'})}
             />
         </View>
     )
