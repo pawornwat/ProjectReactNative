@@ -1,7 +1,7 @@
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import AboutScreen from './screens/AboutScreen';
-import HomeScreen from './screens/HomeScreen';
+import FirstPage from './screens/FirstPage';
+import SecondPage from './screens/SecondPage';
 import React from 'react';
 import {Text, View} from 'react-native';
 
