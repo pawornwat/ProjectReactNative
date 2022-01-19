@@ -1,35 +1,40 @@
 import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
-import HomeScreen from './screens/HomeScreen';
-import AboutScreen from './screens/AboutScreen'
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import FirstPage from './screens/FirstPage';
+import SecondPage from './screens/SecondPage';
 import React from 'react';
+import {Text, View} from 'react-native';
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName='Home'
+        initialRouteName="FirstPage"
         screenOptions={{
           headerStyle: {
-            backgroundColor: '#0096DA',
+            backgroundColor: '#f4511e',
           },
           headerTintColor: '#fff',
           headerTitleStyle: {
             fontWeight: 'bold',
           },
-        }}
-      >
+        }}>
         <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{ title: 'หน้าหลัก' }}
+          name="FirstPage"
+          component={FirstPage}
+          options={{
+            title: 'FIRST PAGE',
+          }}
         />
+
         <Stack.Screen
-          name="About"
-          component={AboutScreen}
-          options={{ title: 'เกี่ยวกับเรา' }}
+          name="SecondPage"
+          component={SecondPage}
+          options={{
+            title: 'SECOND PAGE',
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>
