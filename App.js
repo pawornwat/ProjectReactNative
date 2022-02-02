@@ -7,11 +7,12 @@ import FirstPage from './pages/FirstPage';
 import SecondPage from './pages/SecondPage';
 import ThirdPage from './pages/ThirdPage';
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import {View,TouchableOpacity,Image } from 'react-native';
+import {View, TouchableOpacity, Image} from 'react-native';
+import CustomSidebarMenu from './pages/CustomSidebarMenu';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
-const NavigationDrawerStructure = (props) => {
+const NavigationDrawerStructure = props => {
   const toggleDrawer = () => {
     props.navigationProps.toggleDrawer();
   };
@@ -20,7 +21,7 @@ const NavigationDrawerStructure = (props) => {
       <TouchableOpacity onPress={() => toggleDrawer()}>
         <Image
           source={require('./assets/drawerWhite.png')}
-          style={{width: 25,height:25,marginLeft:5}}></Image>
+          style={{width: 25, height: 25, marginLeft: 5}}></Image>
       </TouchableOpacity>
     </View>
   );
@@ -37,7 +38,9 @@ function FirstScreenStack({navigation}) {
         headerTintColor: '#fff',
         //Set Header text style
         headerTitleStyle: {fontWeight: 'bold'},
-        headerLeft:()=> <NavigationDrawerStructure navigationProps={navigation}/>
+        headerLeft: () => (
+          <NavigationDrawerStructure navigationProps={navigation} />
+        ),
       }}>
       <Stack.Screen
         name="FirstPage"
@@ -58,18 +61,20 @@ function SecondScreenStack({navigation}) {
         headerTintColor: '#fff',
         //Set Header text style
         headerTitleStyle: {fontWeight: 'bold'},
-        headerLeft:()=> <NavigationDrawerStructure navigationProps={navigation}/>
+        headerLeft: () => (
+          <NavigationDrawerStructure navigationProps={navigation} />
+        ),
       }}>
       <Stack.Screen
-      name="SecondPage"
-      component={SecondPage}
-      options={{title: 'Second Page'}}
-    />
-    <Stack.Screen
-      name="ThirdPage"
-      component={ThirdPage}
-      options={{title: 'Third Page'}}
-    />
+        name="SecondPage"
+        component={SecondPage}
+        options={{title: 'Second Page'}}
+      />
+      <Stack.Screen
+        name="ThirdPage"
+        component={ThirdPage}
+        options={{title: 'Third Page'}}
+      />
     </Stack.Navigator>
   );
 }
@@ -77,7 +82,13 @@ function SecondScreenStack({navigation}) {
 const App = () => {
   return (
     <NavigationContainer>
-      <Drawer.Navigator>
+      <Drawer.Navigator
+        drawerContentOptions={{
+        activeTintColor:'#e91263',
+        itemStyle:{marginVertical:5}
+      }}
+      drawerContent = {(props)=><CustomSidebarMenu{...props}/>}
+      >
         <Drawer.Screen name="FirstPage" component={FirstScreenStack} />
         <Drawer.Screen name="SecondPage" component={SecondScreenStack} />
       </Drawer.Navigator>
