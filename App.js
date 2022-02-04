@@ -1,97 +1,65 @@
 import React from 'react';
 
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
-
-import FirstPage from './pages/FirstPage';
-import SecondPage from './pages/SecondPage';
-import ThirdPage from './pages/ThirdPage';
-import {createDrawerNavigator} from '@react-navigation/drawer';
-import {View, TouchableOpacity, Image} from 'react-native';
-import CustomSidebarMenu from './pages/CustomSidebarMenu';
+import {NavigationContainer, TabActions} from '@react-navigation/native';
+import {View, TouchableOpacity, Image,Text} from 'react-native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import HomeScreen from './screens/HomeScreen';
+import SettingScreen from './screens/SettingScreen';
+import ProfileScreen from './screens/ProfileScreen';
+import { createStackNavigator } from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
-const Drawer = createDrawerNavigator();
-const NavigationDrawerStructure = props => {
-  const toggleDrawer = () => {
-    props.navigationProps.toggleDrawer();
-  };
-  return (
-    <View style={{flexDirection: 'row'}}>
-      <TouchableOpacity onPress={() => toggleDrawer()}>
-        <Image
-          source={require('./assets/drawerWhite.png')}
-          style={{width: 25, height: 25, marginLeft: 5}}></Image>
-      </TouchableOpacity>
-    </View>
-  );
-};
 
-function FirstScreenStack({navigation}) {
+function HomeStackScreen() {
   return (
-    <Stack.Navigator
-      initialRouteName="FirstPage"
+    <Stack.Navigator 
       screenOptions={{
-        //Set Header Color
-        headerStyle: {backgroundColor: '#5f9ea0'},
-        //Set Header text color
-        headerTintColor: '#fff',
-        //Set Header text style
-        headerTitleStyle: {fontWeight: 'bold'},
-        headerLeft: () => (
-          <NavigationDrawerStructure navigationProps={navigation} />
-        ),
-      }}>
-      <Stack.Screen
-        name="FirstPage"
-        component={FirstPage}
-        options={{title: 'First Page'}}
-      />
+        headerStyle: { backgroundColor: 'red' },
+        headerTintColor: 'white',
+        headerTitleStyle: { fontWeight: 'bold' },
+      }}
+    >
+      <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Home Page' }} />
     </Stack.Navigator>
   );
 }
-function SecondScreenStack({navigation}) {
+function SettingStackScreen() {
   return (
-    <Stack.Navigator
-      initialRouteName="FirstPage"
+    <Stack.Navigator 
       screenOptions={{
-        //Set Header Color
-        headerStyle: {backgroundColor: '#5f9ea0'},
-        //Set Header text color
-        headerTintColor: '#fff',
-        //Set Header text style
-        headerTitleStyle: {fontWeight: 'bold'},
-        headerLeft: () => (
-          <NavigationDrawerStructure navigationProps={navigation} />
-        ),
-      }}>
-      <Stack.Screen
-        name="SecondPage"
-        component={SecondPage}
-        options={{title: 'Second Page'}}
-      />
-      <Stack.Screen
-        name="ThirdPage"
-        component={ThirdPage}
-        options={{title: 'Third Page'}}
-      />
+        headerStyle: { backgroundColor: 'red' },
+        headerTintColor: 'white',
+        headerTitleStyle: { fontWeight: 'bold' },
+      }}
+    >
+      <Stack.Screen name="Setting" component={SettingScreen} options={{ title: 'Setting Page' }} />
+      <Stack.Screen name="Profile" component={ProfileScreen} options={{ title: 'Profile Page' }} />
     </Stack.Navigator>
   );
 }
+
+const Tab = createBottomTabNavigator();
 
 const App = () => {
   return (
     <NavigationContainer>
-      <Drawer.Navigator
-        drawerContentOptions={{
-        activeTintColor:'#e91263',
-        itemStyle:{marginVertical:5}
-      }}
-      drawerContent = {(props)=><CustomSidebarMenu{...props}/>}
-      >
-        <Drawer.Screen name="FirstPage" component={FirstScreenStack} />
-        <Drawer.Screen name="SecondPage" component={SecondScreenStack} />
-      </Drawer.Navigator>
+      <Tab.Navigator
+        screenOptions={({route}) => ({
+          tabBarIcon: ({focused}) => {
+            let image;
+            if (route.name === 'Home') {
+              image = focused ? require('./assets/logo1.png') : require('./assets/logo2.png');
+            }else if(route.name === 'Setting'){
+              image = focused ? require('./assets/logo1.png') : require('./assets/logo3.png');
+            }
+            return <Image source={image} style={{width:25,height:25,marginLeft:5}}/>;
+          },
+        })}
+        >
+
+        <Tab.Screen name="Home" component={HomeStackScreen} />
+        <Tab.Screen name="Setting" component={SettingStackScreen} />
+      </Tab.Navigator>
     </NavigationContainer>
   );
 };
