@@ -1,26 +1,61 @@
+//HomeScreen.js
 import React from 'react';
-import {View, Text, StyleSheet, Button} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import { styles } from '../components/styles';
+import {StyleSheet, Text, View, Button} from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import {
+  HeaderButtons,
+  HeaderButton,
+  Item,
+} from 'react-navigation-header-buttons';
 
-export default function HomeScreen({navigation}) {
-  return (
-    <SafeAreaView style={{flex: 1}}>
-      <View style={{flex: 1, padding: 15}}>
-        <View style={styles.container}>
-          <Text style={styles.textTopStyle}>Home Screen</Text>
-          <Button
-            title="Go to Setting Tab"
-            onPress={() => navigation.navigate('Setting')}
+const IoniconsHeaderButton = props => (
+  <HeaderButton IconComponent={Ionicons} iconSize={23} {...props} />
+);
 
+const HomeScreen = ({navigation}) => {
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => (
+        <HeaderButtons HeaderButtonComponent={IoniconsHeaderButton}>
+          <Item
+            title="menu"
+            iconName="menu"
+            onPress={() => navigation.openDrawer()}
           />
-          <Button title="Open News Screen" />
-          <Text style={{bottom: 15, position: 'absolute'}}>
-            <Text style={styles.textBottomStyle}>www.tni.ac.th</Text>
-          </Text>
-        </View>
-      </View>
-    </SafeAreaView>
-  );
-}
+        </HeaderButtons>
+      ),
+      headerRight: () => (
+        <HeaderButtons HeaderButtonComponent={IoniconsHeaderButton}>
+          <Item
+            title="register"
+            iconName="person-add"
+            onPress={() => alert('ลงทะเบียน')}
+          />
+        </HeaderButtons>
+      ),  
+    });
+  }, [navigation]);
 
+  return (
+    <View style={styles.container}>
+      <Ionicons name="home-outline" size={30} color="#f4511e" />
+      <Text>หน้าหลัก</Text>
+      <Button
+        title="Go to About"
+        onPress={() =>
+          navigation.navigate('About', {email: 'ta.pawornwat_st@tni.ac.th'})
+        }  
+      />
+    </View>
+  );
+};
+
+export default HomeScreen;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
