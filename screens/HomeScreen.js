@@ -29,10 +29,10 @@ const HomeScreen = ({navigation}) => {
           <Item
             title="register"
             iconName="person-add"
-            onPress={() => alert('ลงทะเบียน')}
+            onPress={() => navigation.navigate('Register')}
           />
         </HeaderButtons>
-      ),  
+      ),
     });
   }, [navigation]);
 
@@ -41,10 +41,8 @@ const HomeScreen = ({navigation}) => {
       <Ionicons name="home-outline" size={30} color="#f4511e" />
       <Text>หน้าหลัก</Text>
       <Button
-        title="Go to About"
-        onPress={() =>
-          navigation.navigate('About', {email: 'ta.pawornwat_st@tni.ac.th'})
-        }  
+        title="Go to Product"
+        onPress={() => navigation.navigate('Product')}
       />
     </View>
   );

@@ -13,27 +13,30 @@ import {
   Body,
   Icon,
   Text,
+  ListItem,
 } from 'native-base';
+import { ScrollView } from 'react-native-gesture-handler';
 
 export default function MenuScreen({navigation}) {
-  const {email} = route.params;
   return (
     <ScrollView>
-      <View style={{flex: 1}}>
+      <View>
         <Text
           style={{
-            color: 'blue',
+            color: "blue",
             fontSize: 20,
-            fontWeight: 'bold',
+            fontWeight: "bold",
             padding: 20,
-          }}>
+          }}
+        >
           เมนูหลัก
         </Text>
+        {/* from native base */} 
         <Content>
-          <ListItem icon onPress={() => navigation.navigate('HomeStack')}>
+          <ListItem icon style={{marginBottom:10,marginTop:10}} onPress={()=> navigation.navigate('Home')}>
             <Left>
-              <Button style={{backgroundColor: '#FF9501'}}>
-                <Icon active name="home" />
+              <Button style={{ backgroundColor: "#FF9501" }}>
+                <Icon active name="airplane" />
               </Button>
             </Left>
             <Body>
@@ -43,10 +46,10 @@ export default function MenuScreen({navigation}) {
               <Icon active name="arrow-forward" />
             </Right>
           </ListItem>
-          <ListItem icon onPress={() => navigation.navigate('ProductStack')}>
+          <ListItem icon style={{marginBottom:10,marginTop:10}} onPress={()=> navigation.navigate('Product')}>
             <Left>
-              <Button style={{backgroundColor: '#007AFF'}}>
-                <Icon active name="product" />
+              <Button style={{ backgroundColor: "#007AFF" }}>
+                <Icon active name="wifi" />
               </Button>
             </Left>
             <Body>
