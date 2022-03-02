@@ -1,5 +1,6 @@
 import {View} from 'react-native';
 import React from 'react';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Formik, Field} from 'formik';
 import * as Yup from 'yup';
 import {
@@ -23,23 +24,23 @@ import {
 } from 'native-base';
 import axios from 'axios';
 
+const IoniconsHeaderButton = props => (
+  <HeaderButton IconComponent={Ionicons} iconSize={23} {...props} />
+);
 const validateSchema = Yup.object().shape({
-  name: Yup.string().required('กรุณาป้อนชื่อสกุล'),
-  email: Yup.string()
-    .email('รูปแบบอีเมลไม่ถูกต้อง')
-    .required('กรุณากรอกอีเมลใหม่'),
-  password: Yup.string()
-    .min(3, 'รหัสผ่านต้อง 3 ตัวอักษรขิ้นไป')
-    .required('กรุณาป้อนรหัสผ่าน'),
-});
-
-export default function RegisterScreen({navigation}) {
+    email: Yup.string()
+      .email('รูปแบบอีเมลไม่ถูกต้อง')
+      .required('กรุณากรอกอีเมลใหม่'),
+    password: Yup.string()
+      .min(3, 'รหัสผ่านต้อง 3 ตัวอักษรขิ้นไป')
+      .required('กรุณาป้อนรหัสผ่าน'),
+  });
+export default function LoginScreen({navigation}) {
   return (
     <Container>
       <Content padder>
         <Formik
           initialValues={{
-            name: '',
             email: '',
             password: '',
           }}
@@ -48,7 +49,6 @@ export default function RegisterScreen({navigation}) {
             try {
               const url = 'https://api.codingthailand.com/api/register';
               const res = await axios.post(url, {
-                name: values.name,
                 email: values.email,
                 password: values.password,
               });
@@ -70,22 +70,6 @@ export default function RegisterScreen({navigation}) {
             isSubmitting,
           }) => (
             <Form>
-              <Item
-                fixedLabel
-                error={errors.name && touched.name ? true : false}>
-                <Label>Name</Label>
-                <Input
-                  value={values.name}
-                  onChangeText={handleChange('name')}
-                  onBlur={handleBlur('name')}
-                />
-                {errors.name && touched.name && <Icon name="close-circle" />}
-              </Item>
-              {errors.name && touched.name && (
-                <Item>
-                  <Label style={{color: 'red'}}>{errors.name}</Label>
-                </Item>
-              )}
               <Item
                 fixedLabel
                 error={errors.email && touched.email ? true : false}>
