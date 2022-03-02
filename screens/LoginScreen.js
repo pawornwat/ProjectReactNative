@@ -108,7 +108,7 @@ export default function LoginScreen({navigation}) {
                 </Item>
               )}
               <Button full light onPress={handleSubmit} disabled={isSubmitting}>
-                <Text>Register</Text>
+                <Text>Login</Text>
               </Button>
             </Form>
           )}
