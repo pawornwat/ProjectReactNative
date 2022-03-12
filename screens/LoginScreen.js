@@ -1,6 +1,5 @@
 import {View} from 'react-native';
 import React from 'react';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Formik, Field} from 'formik';
 import * as Yup from 'yup';
 import {
@@ -23,10 +22,10 @@ import {
   Icon,
 } from 'native-base';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const IoniconsHeaderButton = props => (
-  <HeaderButton IconComponent={Ionicons} iconSize={23} {...props} />
-);
+import { userStoreContext } from '../context/UserContext';
+
 const validateSchema = Yup.object().shape({
     email: Yup.string()
       .email('รูปแบบอีเมลไม่ถูกต้อง')
@@ -47,15 +46,29 @@ export default function LoginScreen({navigation}) {
           validationSchema={validateSchema}
           onSubmit={async (value,{setSubmitting}) => {
             try {
-              const url = 'https://api.codingthailand.com/api/register';
+              const url = 'https://api.codingthailand.com/api/login';
               const res = await axios.post(url, {
                 email: values.email,
                 password: values.password,
               });
-              alert(res.data.message);
-              navigation.navigate('Home');
+            //   alert(JSON.stringify(res.data));
+            //   navigation.navigate('Home');
+            await AsyncStorage.setItem('@token',JSON.stringify(res.data))
+            const urlProfile = "https://api.codingthailand.com/api/profile"
+            const resProfile = await axios.get(urlProfile,{
+                headers:{
+                    Authorization :'Bearer ' + res.data.access_token
+                }
+            })
+            // alert(JSON.stringify(resProfile.data.data.user))
+            await AsyncStorage.setItem('@profile',JSON.stringify(resProfile.data.data.user))
+            const profile = await AsyncStorage.getItem('@profile')
+            userStore.updateProfile(JSON.parse(profile))
+
+            alert('เข้าสู่ระบบเรียบร้อยแล้ว')
+            navigation.navigate('HomeScreen')
             } catch (error) {
-              alert(error.response.data.errors.email[0]);
+              alert(error.response.data.message);
             }finally{ //ให้ปุ่มสามารถกลับมาคลิกได้อีก
               setSubmitting(false);
             }

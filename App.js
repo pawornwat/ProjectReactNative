@@ -8,8 +8,10 @@ import DetailScreen from './screens/DetailScreen';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import MenuScreen from './screens/MenuScreen';
 import RegisterScreen from './screens/RegisterScreen';
+import LoginScreen from './screens/LoginScreen';
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
+import UserStoreProvider from './context/UserContext';
 
 function HomeStack() {
   return (
@@ -34,6 +36,11 @@ function HomeStack() {
         name="Register"
         component={RegisterScreen}
         options={{title: 'ลงทะเบียน'}}
+      />
+      <Stack.Screen
+        name="Login"
+        component={LoginScreen}
+        options={{title: 'เข้าสู่ระบบ'}}
       />
     </Stack.Navigator>
   );
@@ -64,17 +71,36 @@ function ProductStack() {
     </Stack.Navigator>
   );
 }
+function LoginStack() {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: {backgroundColor: '#FACF5A'},
+        headerTintColor: '#233142',
+        headerTitleStyle: {fontWeight: 'bold'},
+      }}>
+      <Stack.Screen
+        name="Login"
+        component={LoginScreen}
+        options={{title: 'เข้าสู่ระบบ'}}
+      />
+    </Stack.Navigator>
+  );
+}
 const App = () => {
   return (
-    <NavigationContainer>
-      <Drawer.Navigator
-        initialRouteName="Home"
-        drawerPosition="left"
-        drawerContent={props => <MenuScreen {...props} />}>
-        <Drawer.Screen name="Home" component={HomeStack} />
-        <Drawer.Screen name="Product" component={ProductStack} />
-      </Drawer.Navigator>
-    </NavigationContainer>
+    <UserStoreProvider>
+      <NavigationContainer>
+        <Drawer.Navigator
+          initialRouteName="Home"
+          drawerPosition="left"
+          drawerContent={props => <MenuScreen {...props} />}>
+          <Drawer.Screen name="Home" component={HomeStack} />
+          <Drawer.Screen name="Product" component={ProductStack} />
+          {/* <Drawer.Screen name="Login" component={LoginStack} /> */}
+        </Drawer.Navigator>
+      </NavigationContainer>
+    </UserStoreProvider>
   );
 };
 
